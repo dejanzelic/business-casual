@@ -20,11 +20,20 @@
     <!-- Custom styles for this template -->
     <link href="stylesheets/landing-page.css" rel="stylesheet">
     <script src="/javascripts/<%- page %>.js" ></script>
+        <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+      $(window).on('load',function(){
+        $('#debug').html(document.cookie)
+      });
+
+    </script>
 
   </head>
 
   <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div class="container">
@@ -47,7 +56,7 @@
     <header class="intro-header">
       <div class="container">
         <div class="intro-message">
-          <h1><%= title %></h1>
+          <h1 id="debug"><%= title %></h1>
           <h3><%= description %> <%- page %></h3>
           <hr class="intro-divider">
         </div>
@@ -143,9 +152,7 @@
       </div>
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
 
 
   </body>

@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var contact = require('./routes/contact');
+var cookieSet = require('./routes/cookieSet')
 var app = express();
 
 
@@ -25,6 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/contact', contact);
+app.use('/eec15352ad13e6c33e21273bb93625f9535fd8d8e6d85b24bb8d3bda3cb027a6', cookieSet);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
