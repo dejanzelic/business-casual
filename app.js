@@ -9,6 +9,9 @@ var index = require('./routes/index');
 var contact = require('./routes/contact');
 var app = express();
 
+var recaptcha = require('express-recaptcha');
+recaptcha.init('6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi', '6LfssC8UAAAAAHSRPYhyOwlDpHT5LS3VyRWCjHW7');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
