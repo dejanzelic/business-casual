@@ -5,6 +5,7 @@ var getUrls = require('get-urls')
 var sanitize_url = require("sanitize-filename");
 var crypto = require("crypto");
 var recaptcha = require('express-recaptcha');
+//TODO: remove before making public
 recaptcha.init('6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi', '6LfssC8UAAAAAHSRPYhyOwlDpHT5LS3VyRWCjHW7');
 
 /* GET contact page. */
@@ -13,11 +14,12 @@ router.get('/', recaptcha.middleware.render, function(req, res, next) {
   res.render('contact', { 
   	title: 'Contact Us', 
   	description: 'Let us know if you need help!', 
-  	captcha: req.recaptcha});
+  	modal: false,
+  	form: true});
 });
 
 router.post('/', recaptcha.middleware.verify, function(req, res, next) {
-
+	console.log(req.recaptcha);
 	if (!req.recaptcha.error){
 		urls = getUrls(req.body.message);
 		console.log(urls)
@@ -29,9 +31,6 @@ router.post('/', recaptcha.middleware.verify, function(req, res, next) {
 			filename = crypto.createHash('sha1').update(current_date + random).digest('hex');
 			filename = "screenshots/" + filename + ".png";
 			console.log(filename);
-	  		
-	   		//save_loc = 'screenshots/' + sanatize_url(link)
-	   		// console.log(save_loc)
 
 	  		(async () => {
 			  const browser = await puppeteer.launch();
@@ -45,17 +44,20 @@ router.post('/', recaptcha.middleware.verify, function(req, res, next) {
 	  	});
 		res.render('contact', { 
 			title: 'Contact Us', 
-			description: 'Thank you for your submission!', 
-			captcha: false});
+			description: 'Let us know if you need help!', 
+			modal: true,
+			modal_title: 'Thank you!',
+			modal_body: 'We will get back to you as soon as possible',
+			form: false});
 	}else{
 		res.render('contact', { 
-			title: 'CAPTCHA FAILED!!!', 
-			description: 'Thank you for your submission!', 
-			captcha: false});
+			title: 'Contact Us', 
+			description: 'Let us know if you need help!', 
+			modal: true,
+			modal_title: 'ERROR',
+			modal_body: 'Please complete the Captcha!',
+			form: true});
 	}
-
-
-
 
 });
 

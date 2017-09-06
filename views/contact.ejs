@@ -19,6 +19,11 @@
 
     <!-- Custom styles for this template -->
     <link href="stylesheets/landing-page.css" rel="stylesheet">
+        <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 
   </head>
 
@@ -56,6 +61,8 @@
     <!-- Page Content -->
     <section class="content-section-a">
 
+
+    <%if (form) { %>
       <div class="container">
         <div class="row">
           <div class="col-lg-5 ml-auto">
@@ -73,7 +80,7 @@
                   <textarea class="form-control" id="message" rows="3" name="message"></textarea>
                   <small id="texthelp" class="form-text text-muted" >Our admins love links, they will always look at examples of issues you might have! (and they are <i>very</i> quick!!)</small>
                 </div>
-                <%- captcha %>
+                <div class="g-recaptcha" data-sitekey="6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi"></div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
           </div>
@@ -84,6 +91,38 @@
 
       </div>
       <!-- /.container -->
+       <% } else { %>
+        <h2>Thank you for your submission! <a href="/">Click here to go back to the main page</a></h2>
+       <% } %>
+       <% if (modal) { %>  
+
+              <!-- Modal -->
+              <script type="text/javascript">
+                  $(window).on('load',function(){
+                      $('#exampleModal').modal('show');
+                  });
+              </script>
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel"><%= modal_title %></h5>
+                      <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <%= modal_body %>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+
+
     </section>
 
     <!-- /.content-section-a -->
@@ -112,11 +151,6 @@
         <p class="copyright text-muted small">Copyright &copy; <%= title %> 2017. All Rights Reserved</p>
       </div>
     </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
 
   </body>
 
