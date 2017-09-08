@@ -8,9 +8,6 @@ var recaptcha = require('express-recaptcha');
 var config = require('../config.json');
 
 //TODO: remove before making public
-
-var request = require('request');
-
 recaptcha.init('6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi', '6LfssC8UAAAAAHSRPYhyOwlDpHT5LS3VyRWCjHW7');
 
 /* GET contact page. */
@@ -35,14 +32,11 @@ router.post('/', recaptcha.middleware.verify, function(req, res, next) {
 			var random = Math.random().toString();
 			filename = crypto.createHash('sha1').update(current_date + random).digest('hex');
 			filename = "screenshots/" + filename + ".png";
-			console.log(filename);
-			console.log(req.get('host'));
+			console.log("Filename for screenshot is:" + filename);
 
 			(async () => {
 			  const browser = await puppeteer.launch();
 			  const page = await browser.newPage();
-			  //TODO: use instance metadata to get domain or set it to localhost:8080
-			  console.log(config)
 			  await page.setCookie({name: config.flags.xss.name, value: config.flags.xss.flag, domain: config.domain, httpOnly: false, secure: false});
 			  await page.setViewport({width: 1024, height: 768});
 			  await page.goto(link);

@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var contact = require('./routes/contact');
-var cookieSet = require('./routes/cookieSet')
 var app = express();
 
 const puppeteer = require('puppeteer');
@@ -27,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/contact', contact);
-app.use('/eec15352ad13e6c33e21273bb93625f9535fd8d8e6d85b24bb8d3bda3cb027a6', cookieSet);
 
 
 // catch 404 and forward to error handler
@@ -47,15 +45,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setViewport({width: 1024, height: 768});
-  await page.goto("http://127.0.0.1:8080/eec15352ad13e6c33e21273bb93625f9535fd8d8e6d85b24bb8d3bda3cb027a6");
-  await page.screenshot({path: "screenshots/cookieSet.png"});
-
-  browser.close();
-})();
 
 module.exports = app;
