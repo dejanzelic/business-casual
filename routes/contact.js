@@ -17,7 +17,8 @@ router.get('/', recaptcha.middleware.render, function(req, res, next) {
   	title: 'Contact Us', 
   	description: 'Let us know if you need help!', 
   	modal: false,
-  	form: true});
+  	form: true,
+  	flag: config.flags.contact.flag});
 });
 
 router.post('/', recaptcha.middleware.verify, function(req, res, next) {

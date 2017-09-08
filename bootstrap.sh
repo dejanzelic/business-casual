@@ -7,7 +7,7 @@ apt-get install curl gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcup
 
 if curl -s http://instance-data.ec2.internal; then
 	is_aws=true
-	app_home="/var/www/chittychat"
+	app_home="/var/www/business_casual"
 else
 	app_home="/vagrant"
 fi
@@ -24,7 +24,7 @@ if [ "$is_aws" = true ]; then
 	echo "Running on AWS"
 	sudo apt-get install awscli -y
 	mkdir -p /var/www/chittychat
-	aws s3 --recursive cp s3://appsecusa-7d2b277154db/source/chitty_chat/ /var/www/chittychat/
+	aws s3 --recursive cp s3://appsecusa-7d2b277154db/source/business_casual/ /var/www/business_casual/
 fi
 
 if ! [ -L $app_home/node_modules ]; then

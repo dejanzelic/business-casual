@@ -3,6 +3,9 @@
 		"xss":{
 			"name": "flag",
 			"flag" : "DejanWasHere"
+		},
+		"contact" : {
+			"flag": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		}
 
 	},
