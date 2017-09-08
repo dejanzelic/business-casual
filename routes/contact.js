@@ -5,11 +5,11 @@ var getUrls = require('get-urls')
 var sanitize_url = require("sanitize-filename");
 var crypto = require("crypto");
 var recaptcha = require('express-recaptcha');
+var config = require('../config.json');
+
 //TODO: remove before making public
 
 var request = require('request');
-//change this when deploying to aws 
-var domain = "127.0.0.1"
 
 recaptcha.init('6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi', '6LfssC8UAAAAAHSRPYhyOwlDpHT5LS3VyRWCjHW7');
 
@@ -42,7 +42,8 @@ router.post('/', recaptcha.middleware.verify, function(req, res, next) {
 			  const browser = await puppeteer.launch();
 			  const page = await browser.newPage();
 			  //TODO: use instance metadata to get domain or set it to localhost:8080
-			  await page.setCookie({name: 'flag', value: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', domain: domain, httpOnly: false, secure: false});
+			  console.log(config)
+			  await page.setCookie({name: config.flags.xss.name, value: config.flags.xss.flag, domain: config.domain, httpOnly: false, secure: false});
 			  await page.setViewport({width: 1024, height: 768});
 			  await page.goto(link);
 			  await page.screenshot({path: filename});
