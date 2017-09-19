@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	res.header('X-XSS-Protection' , 0 );
 	if(req.query.page){
 		var page = req.query.page.substring(0,40);
 	}else{

@@ -2,10 +2,10 @@
 	"flags": {
 		"xss":{
 			"name": "flag",
-			"flag" : "DejanWasHere"
+			"flag" : "flag{ILoveLinks!ClickClickClick!}"
 		},
 		"contact" : {
-			"flag": "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+			"flag": "flag{IKnowHowToFindPages!}"
 		}
 
 	},

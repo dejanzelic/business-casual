@@ -23,8 +23,9 @@ fi
 if [ "$is_aws" = true ]; then
 	echo "Running on AWS"
 	sudo apt-get install awscli -y
-	mkdir -p /var/www/chittychat
+	mkdir -p /var/www/business_casual/
 	aws s3 --recursive cp s3://appsecusa-7d2b277154db/source/business_casual/ /var/www/business_casual/
+	mkdir /var/www/business_casual/screenshots
 fi
 
 if ! [ -L $app_home/node_modules ]; then
@@ -34,7 +35,8 @@ fi
 #if in AWS, run the application and redirect 80 to 8080
 if [ "$is_aws" = true ]; then
 	npm install -g pm2
-	pm2 start $app_home/app.js
+	pm2 start $app_home/bin/www
 	iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+	iptables -t nat -I OUTPUT -p tcp -o lo --dport 80 -j REDIRECT --to-ports 8080
 fi
 

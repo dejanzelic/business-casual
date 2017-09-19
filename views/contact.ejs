@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
   <head>
@@ -11,18 +11,18 @@ DOCTYPE html>
     <title><%= title %> - <%= description %></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="stylesheets/landing-page.css" rel="stylesheet">
+    <link href="/stylesheets/landing-page.css" rel="stylesheet">
         <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper/popper.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/popper/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
   </head>
@@ -68,7 +68,7 @@ DOCTYPE html>
           <div class="col-lg-5 ml-auto">
             <hr class="section-heading-spacer">
             <div class="clearfix"></div>
-            <h2 class="section-heading">Send Us an Email</h2>
+            <h2 class="section-heading">Problem? Send us an Email!</h2>
               <form action="/contact" method="post">
                 <div class="form-group">
                   <label for="email">Email address</label>
@@ -76,16 +76,20 @@ DOCTYPE html>
                   <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div>
                 <div class="form-group">
+                  <label for="url">URL of problem?</label>
+                  <input type="text" class="form-control" id="url" aria-describedby="URLOfProblem" placeholder="URL where problem is found" name="url" required>
+                  <small id="texthelp" class="form-text text-muted" >Our admins love links, they will always look at examples of issues you might have! (and they are <i>very</i> quick!!)</small>
+                </div>
+                <div class="form-group">
                   <label for="message">What's your message?</label>
                   <textarea class="form-control" id="message" rows="3" name="message"></textarea>
-                  <small id="texthelp" class="form-text text-muted" >Our admins love links, they will always look at examples of issues you might have! (and they are <i>very</i> quick!!)</small>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi"></div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
           </div>
           <div class="col-lg-5 mr-auto">
-            <img class="img-fluid" src="images/ipad.png" alt="">
+            <img class="img-fluid" src="/images/ipad.png" alt="">
           </div>
         </div>
 
