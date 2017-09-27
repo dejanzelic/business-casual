@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var contact = require('./routes/contact');
 var app = express();
+var session = require('express-session')
+
 
 const puppeteer = require('puppeteer');
 
@@ -23,6 +25,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use('/', index);
 app.use('/contact', contact);

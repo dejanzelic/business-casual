@@ -23,7 +23,6 @@
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/popper/popper.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src='https://www.google.com/recaptcha/api.js'></script>
 
   </head>
 
@@ -84,7 +83,8 @@
                   <label for="message">What's your message?</label>
                   <textarea class="form-control" id="message" rows="3" name="message"></textarea>
                 </div>
-                <div class="g-recaptcha" data-sitekey="6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi"></div>
+                <%-captcha %>
+                <input type="text" class="form-control" id="captcha" aria-describedby="URLOfProblem" placeholder="Please enter the captcha" name="captcha" required>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
           </div>

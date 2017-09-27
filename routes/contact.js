@@ -4,12 +4,11 @@ const puppeteer = require('puppeteer');
 var getUrls = require('get-urls')
 var sanitize_url = require("sanitize-filename");
 var crypto = require("crypto");
-var recaptcha = require('express-recaptcha');
+var svgCaptcha = require('svg-captcha');
 var config = require('../config.json');
 var request = require('request');
-
+var session = require('express-session')
 //TODO: remove before making public
-recaptcha.init('6LfssC8UAAAAAG-YHjwL7CKvjcaJTvNaGD3n8IGi', '6LfssC8UAAAAAHSRPYhyOwlDpHT5LS3VyRWCjHW7');
 
 request(
 	{uri: 'http://169.254.169.254/latest/meta-data/public-hostname',
@@ -21,21 +20,29 @@ request(
 	}
 });
 
+
+
 /* GET contact page. */
-router.get('/', recaptcha.middleware.render, function(req, res, next) {
+router.get('/', function(req, res, next) {
+  var captcha = svgCaptcha.create();
+  req.session.captcha = captcha.text;
   res.header('X-XSS-Protection' , 0 );	
   res.render('contact', { 
   	title: 'Contact Us', 
   	description: 'Let us know if you need help!', 
   	modal: false,
   	form: true,
-  	flag: config.flags.contact.flag});
+  	flag: config.flags.contact.flag,
+    captcha: captcha.data});
 });
 
-router.post('/', recaptcha.middleware.verify, function(req, res, next) {
+router.post('/', function(req, res, next) {
+	var captcha = svgCaptcha.create();
+	console.log(req.body.captcha);
+	console.log(req.session.captcha);
 	res.header('X-XSS-Protection' , 0 );
-	console.log(req.recaptcha);
-	if (!req.recaptcha.error){
+
+	if (req.body.captcha == req.session.captcha){
 		urls = getUrls(req.body.url);
 		console.log(urls.size)
 
@@ -75,7 +82,8 @@ router.post('/', recaptcha.middleware.verify, function(req, res, next) {
 			modal_title: 'ERROR',
 			modal_body: 'Please complete the Captcha!',
 			form: true,
-			flag: config.flags.contact.flag});
+			flag: config.flags.contact.flag,
+			captcha: captcha.data});
 	}
 
 });
