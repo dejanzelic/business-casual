@@ -5,8 +5,9 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install curl gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget -y
 
-if curl -s http://instance-data.ec2.internal; then
-	is_aws=true
+if [ -f /etc/is_vagrant_vm ] 
+then
+	is_prod=true
 	app_home="/var/www/business_casual"
 else
 	app_home="/vagrant"
@@ -20,8 +21,8 @@ else
 	apt-get install -y nodejs
 fi
 
-if [ "$is_aws" = true ]; then
-	echo "Running on AWS"
+if [ "$is_prod" = true ]; then
+	echo "Running in Prod"
 	sudo apt-get install awscli -y
 	mkdir -p /var/www/business_casual/
 	aws s3 --recursive cp s3://appsecusa-7d2b277154db/source/business_casual/ /var/www/business_casual/
@@ -32,8 +33,8 @@ if ! [ -L $app_home/node_modules ]; then
 	cd $app_home && npm install 
 fi
 
-#if in AWS, run the application and redirect 80 to 8080
-if [ "$is_aws" = true ]; then
+#if in prod, run the application and redirect 80 to 8080
+if [ "$is_prod" = true ]; then
 	npm install -g pm2
 	pm2 start $app_home/bin/www
 	iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080

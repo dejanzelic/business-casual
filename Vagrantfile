@@ -59,6 +59,7 @@ Vagrant.configure("2") do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
+  config.vm.provision "shell", inline: "touch /etc/is_vagrant_vm"
   config.vm.provision :shell, path: "bootstrap.sh"
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
