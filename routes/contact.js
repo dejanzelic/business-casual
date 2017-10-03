@@ -8,19 +8,6 @@ var svgCaptcha = require('svg-captcha');
 var config = require('../config.json');
 var request = require('request');
 var session = require('express-session')
-//TODO: remove before making public
-
-request(
-	{uri: 'http://169.254.169.254/latest/meta-data/public-hostname',
-	 timeout: 1000}, function (error, response, body) {
-	if(!error){
-		config.domain = body
-	}else{
-		console.log("set to default domain")
-	}
-});
-
-
 
 /* GET contact page. */
 router.get('/', function(req, res, next) {
